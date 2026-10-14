@@ -60,5 +60,24 @@ public class Player : MonoBehaviour
                 rb.linearVelocityX = -veloMove;
             }
         }
+        //Definimos que pasara si hay dos toques en la pantalla
+        if (Input.touchCount == 2)
+        {
+            //Definimos una variable que contenga el primer toque
+            Touch toque1 = Input.GetTouch(0);
+            //Definimos una segunda variable que tenga el segundo toque
+            Touch toque2 = Input.GetTouch(1);
+            // Obtenemos la posicion del primer toque con la camara
+            Vector2 posicion1 = Camera.main.ScreenToWorldPoint(toque1.position);
+            // Obtenemos la posicion del segundo toque con la camara
+            Vector2 posicion2 = Camera.main.ScreenToWorldPoint(toque2.position);
+            //Si cada un toque esta a la derecha y el otro a la izquierda, entonces se da el salto
+            if((posicion1.x<transAux.position.x && transAux.position.x < posicion2.x) || (posicion2.x < transAux.position.x && transAux.position.x<posicion1.x) )
+            {
+                //Cambiamos la velocidad en y
+                rb.linearVelocityY = veloSalto;
+            }
+        }
+        
     }
 }
