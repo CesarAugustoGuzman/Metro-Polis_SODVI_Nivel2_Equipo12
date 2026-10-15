@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         //Luego obtenemos las propiedades del capsule collider
         capsuleCollider = GetComponent<CapsuleCollider>();
         //Obtenemos el transform del auxiliar
-        transAux = rb.GetComponent<Transform>();
+        transAux = auxPosition.GetComponent<Transform>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -52,12 +52,16 @@ public class Player : MonoBehaviour
             {
                 //Cambiamos la velocidad
                 rb.linearVelocityX = veloMove;
+                //Ponemos la orientacion como para que el personaje vea adelante
+                transform.localScale= new Vector3(1,1, 1);
             }
             //Si el toque esta mas a la izquierda que el objeto de referencia, entonces movemos el objeto a la izquierda
             if (posicionActual.x < transAux.position.x)
             {
                 //Cambiamos la velocidad
                 rb.linearVelocityX = -veloMove;
+                //Ponemos la orientacion como para que el personaje vea adelante
+                transform.localScale = new Vector3(-1, 1, 1);
             }
         }
         //Definimos que pasara si hay dos toques en la pantalla
