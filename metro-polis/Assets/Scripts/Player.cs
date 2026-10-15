@@ -80,6 +80,8 @@ public class Player : MonoBehaviour
             {
                 //Cambiamos la velocidad en y
                 rb.linearVelocityY = veloSalto;
+                //Cambiamos la capacidad de salto a false
+                salto = false;
             }
         }
         
