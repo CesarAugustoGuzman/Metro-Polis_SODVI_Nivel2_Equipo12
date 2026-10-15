@@ -12,8 +12,10 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     //Variable que contiene el collider del protagonista
     CapsuleCollider capsuleCollider;
-    //Camara que que vizualiza al personaje
-    public Camera cam;
+    //Camara 1 que que vizualiza al personaje
+    public Camera cam1;
+    //Varieble que contiene la segunda camara que ve al personaje
+    public Camera cam2;
     //Objeto auxiliar que los da una referencia para la ubicacion
     public GameObject auxPosition;
     //Variable que contiene la posicicon del objeto auxiliar
@@ -22,6 +24,8 @@ public class Player : MonoBehaviour
     Vector3 posCam;
     //Variable auxiliar que contiene la posicion en la cual se empieza a mover la camara
     Vector3 puntoMove;
+    //Variable que contiene el script de control de camaras
+    public ControlCamaras controladorCamaras;
 
 
     void Start()
@@ -31,9 +35,9 @@ public class Player : MonoBehaviour
         //Luego obtenemos las propiedades del capsule collider
         capsuleCollider = GetComponent<CapsuleCollider>();
         //Obtenemos el transform del auxiliar
-        transAux = cam.GetComponent<Transform>();
+        transAux = cam1.GetComponent<Transform>();
         //Obtenemos la posicion inicial de la camara
-        posCam = cam.transform.position;
+        posCam = cam1.transform.position;
         //Punto donde se empieza a mover la camara
         puntoMove=auxPosition.transform.position;
     }
@@ -69,10 +73,10 @@ public class Player : MonoBehaviour
                 //Nota el siguiente proceso se hace con el fin de que la camara este estaticas hasta que lleguemos al punto donde se empieza a mover
                 //Para que el movimiento de la camara con el personaje se sienta mas natural y alineado
                 //Si el jugador esta antes de el punto de referencia, entonces la camara esta estatica
-                if (transform.position.x < puntoMove.x)
+                if (puntoMove.x < transform.position.x&&!cam2.gameObject.activeSelf)
                 {
                     //Fijamos la posicion de la camara
-                    cam.transform.position = posCam;
+                    controladorCamaras.activarCamara2();
                 }
                 //Cambiamos la velocidad
                 rb.linearVelocityX = veloMove;
@@ -83,17 +87,14 @@ public class Player : MonoBehaviour
             if (posicionActual.x < transAux.position.x)
             {
                 //Si el jugador esta antes de el punto de referencia, entonces la camara esta estatica
-                if (transform.position.x < puntoMove.x)
+                if (puntoMove.x < transform.position.x && !cam2.gameObject.activeSelf)
                 {
                     //Fijamos la posicion de la camara
-                    cam.transform.position = posCam;
+                    controladorCamaras.activarCamara2();
                 }
                 //Cambiamos la velocidad
                 rb.linearVelocityX = -veloMove;
-                //Ponemos la orientacion como para que el personaje vea adelante
-                transform.localScale = new Vector3(-1, 1, 1);
-                //Conservamos la escala de la camara
-                cam.transform.localScale = new Vector3(1, 1, 1);
+                
             }
         }
         //Definimos que pasara si hay dos toques en la pantalla
@@ -108,7 +109,7 @@ public class Player : MonoBehaviour
             // Obtenemos la posicion del segundo toque con la camara
             Vector2 posicion2 = Camera.main.ScreenToWorldPoint(toque2.position);
             //Si cada un toque esta a la derecha y el otro a la izquierda, entonces se da el salto
-            if(((posicion1.x<transAux.position.x && transAux.position.x < posicion2.x) || (posicion2.x < transAux.position.x && transAux.position.x<posicion1.x)) && Mathf.Abs(rb.linearVelocityY) < 0.01f)
+            if(((posicion1.x<transAux.position.x && transAux.position.x < posicion2.x) || (posicion2.x < transAux.position.x && transAux.position.x<posicion1.x)) && Mathf.Abs(rb.linearVelocityY) < 0.01f&&salto==true)
             {
                 //Cambiamos la velocidad en y
                 rb.linearVelocityY = veloSalto;
