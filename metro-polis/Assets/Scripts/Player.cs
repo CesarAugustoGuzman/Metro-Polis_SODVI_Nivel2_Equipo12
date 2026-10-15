@@ -66,6 +66,8 @@ public class Player : MonoBehaviour
             //Si el toque esta mas a la derecha que el objeto de referencia, entonces movemos el objeto a la derecha
             if (transAux.position.x < posicionActual.x)
             {
+                //Nota el siguiente proceso se hace con el fin de que la camara este estaticas hasta que lleguemos al punto donde se empieza a mover
+                //Para que el movimiento de la camara con el personaje se sienta mas natural y alineado
                 //Si el jugador esta antes de el punto de referencia, entonces la camara esta estatica
                 if (transform.position.x < puntoMove.x)
                 {
