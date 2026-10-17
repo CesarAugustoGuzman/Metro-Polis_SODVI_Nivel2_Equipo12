@@ -2,22 +2,18 @@ using UnityEngine;
 
 public class ControlCamaras : MonoBehaviour
 {
-    public Camera cam1;
-    public Camera cam2;
-    public void activarCamara1()
+    public Transform Player;
+    public float veloCam=0.025f;
+    public Vector3 desplazamiento;
+    public Transform puntoReferencia;
+    private void LateUpdate()
     {
-        if (cam1 != null&& cam2 != null)
+        if (puntoReferencia.position.x < Player.position.x)
         {
-            cam2.gameObject.SetActive(false);
-            cam1.gameObject.SetActive(true);
+            Vector3 posicionDeseada = Player.position + desplazamiento;
+            Vector3 suavizarPosicion = Vector3.Lerp(transform.position, posicionDeseada, veloCam);
+            transform.position = suavizarPosicion;
         }
-    }
-    public void activarCamara2() 
-    {
-        if (cam1 != null && cam2 != null)
-        {
-            cam1.gameObject.SetActive(false);
-            cam2.gameObject.SetActive(true);
-        }
+
     }
 }
