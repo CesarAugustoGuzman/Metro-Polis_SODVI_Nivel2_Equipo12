@@ -271,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ControlCamaras
   Player: {fileID: 1967922555}
   veloCam: 0.025
-  desplazamiento: {x: 0, y: 0, z: 0}
+  desplazamiento: {x: 0, y: -0.1, z: -10}
   puntoReferencia: {fileID: 1375397056}
 --- !u!1 &619394800
 GameObject:
