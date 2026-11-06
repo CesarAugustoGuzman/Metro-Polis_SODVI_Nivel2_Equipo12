@@ -1712,8 +1712,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5658699e12dbd5d46ae9261f0dc66d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Control_Botones
-  MenuP: {fileID: 0}
-  BotonP: {fileID: 0}
+  MenuP: {fileID: 731760322}
+  BotonP: {fileID: 1810716309}
   disponible2: 0
   disponible3: 0
 --- !u!4 &1692673735
