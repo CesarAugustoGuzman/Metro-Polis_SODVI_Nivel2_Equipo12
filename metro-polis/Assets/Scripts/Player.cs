@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     private bool salto = true;
     //Variable que contiene las propiedades fisicas
     Rigidbody2D rb;
-    //Variable que contiene el collider del protagonista
-    CapsuleCollider capsuleCollider;
+    //Variable que contiene el animador del personaje
+    public Animator animador;
     //Camara 1 que que vizualiza al personaje
     public Camera cam1;
     //Objeto auxiliar que los da una referencia para la ubicacion
@@ -26,8 +26,6 @@ public class Player : MonoBehaviour
     {
         //Primero obtenemos las propiedades fisicas
         rb = GetComponent<Rigidbody2D>();
-        //Luego obtenemos las propiedades del capsule collider
-        capsuleCollider = GetComponent<CapsuleCollider>();
         //Obtenemos el transform del auxiliar
         transAux = cam1.GetComponent<Transform>();
         //Punto donde se empieza a mover la camara
@@ -93,6 +91,8 @@ public class Player : MonoBehaviour
                 salto = false;
             }
         }
+        // Cmabiamos la condicion para que se de la animacion de movimeinto en el personaje
+        animador.SetFloat("move",rb.linearVelocityX);
         
     }
 }
