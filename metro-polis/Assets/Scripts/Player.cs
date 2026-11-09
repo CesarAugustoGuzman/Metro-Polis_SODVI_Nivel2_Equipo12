@@ -62,13 +62,24 @@ public class Player : MonoBehaviour
             {
                 //Cambiamos la velocidad
                 rb.linearVelocityX = veloMove;
+                //Si la el personaje apuntaba para atras, hacemos que vea para adelante
+                if (transform.localScale.x<0){
+                    // Cambiamos la orientacion del personaje
+                    transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                }
             }
             //Si el toque esta mas a la izquierda que el objeto de referencia, entonces movemos el objeto a la izquierda
             if (posicionActual.x < transAux.position.x)
             {
                 //Cambiamos la velocidad
                 rb.linearVelocityX = -veloMove;
-                
+                //Si el personaje estaba apuntando para adelante, entonces hacemos que vea para atras
+                if (0<transform.localScale.x)
+                {
+                    //Hacemos que vea paea atras
+                    transform.localScale = new Vector3(-1*transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                }
+
             }
         }
         //Definimos que pasara si hay dos toques en la pantalla
