@@ -38,6 +38,10 @@ public class Player : MonoBehaviour
         {
             salto = true;
         }
+        else
+        {
+            salto=false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
