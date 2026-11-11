@@ -9,6 +9,8 @@ public class Enemigo : MonoBehaviour
     public TextMeshProUGUI puntuacion;
     // Varible que contiene el script que nos da la perdida
     public Control_Botones control;
+    // Variable que contiene el cuerpo de todo el enemigo
+    public GameObject enemigo;
 
     void Start()
     {
@@ -27,7 +29,7 @@ public class Enemigo : MonoBehaviour
             //Lo mostramos en la puntuacion
             puntuacion.text= puntos.ToString();
             // Destruimos el enemigo
-            Destroy(gameObject);
+            Destroy(enemigo);
         }
     }
 
@@ -37,7 +39,7 @@ public class Enemigo : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //Primero destruimos al prota
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
             // Luego activamos el menu de perdiste
             control.Perdiste();
         }
