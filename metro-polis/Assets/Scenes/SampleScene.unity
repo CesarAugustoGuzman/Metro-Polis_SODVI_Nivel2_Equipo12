@@ -618,9 +618,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 605982343}
-  - component: {fileID: 605982344}
   m_Layer: 0
-  m_Name: Rata completa
+  m_Name: Enemigo completo
   m_TagString: enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -643,20 +642,6 @@ Transform:
   - {fileID: 937539720}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &605982344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605982342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4736c7bf8dd00b4eb4452bd96abd3a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemigo
-  puntuacion: {fileID: 1331448594}
-  control: {fileID: 1698716782}
 --- !u!1 &616169193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,6 +1460,7 @@ GameObject:
   - component: {fileID: 937539720}
   - component: {fileID: 937539722}
   - component: {fileID: 937539721}
+  - component: {fileID: 937539723}
   m_Layer: 0
   m_Name: Matador
   m_TagString: Piso
@@ -1602,6 +1588,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &937539723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937539719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4736c7bf8dd00b4eb4452bd96abd3a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemigo
+  puntuacion: {fileID: 1331448594}
+  control: {fileID: 1698716782}
+  enemigo: {fileID: 605982342}
 --- !u!1 &1000890922
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,8 +2339,9 @@ GameObject:
   - component: {fileID: 1156715597}
   - component: {fileID: 1156715599}
   - component: {fileID: 1156715598}
+  - component: {fileID: 1156715600}
   m_Layer: 0
-  m_Name: Rata
+  m_Name: Cuerpo
   m_TagString: enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2465,6 +2467,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1156715600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156715596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4736c7bf8dd00b4eb4452bd96abd3a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemigo
+  puntuacion: {fileID: 1331448594}
+  control: {fileID: 1698716782}
+  enemigo: {fileID: 605982342}
 --- !u!1 &1204502377
 GameObject:
   m_ObjectHideFlags: 0
