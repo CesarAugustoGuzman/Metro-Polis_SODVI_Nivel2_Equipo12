@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,13 +9,23 @@ public class Control_Botones : MonoBehaviour
     public GameObject MenuP;
     // Boton de pausa
     public GameObject BotonP;
+    // Boton de reanudar
+    public GameObject BotonR;
     //Variable que contiene si se a completado el nivel 2
-    public float disponible2;
+    private float disponible2;
     // Variable que contiene si el nivel 3 esta completo
-    public float disponible3;
+    private float disponible3;
+    // Varible que contiene la escena actual en la cual estamos trabajando
+    private string sceneActual;
+    // Variable que contiene el texto que identifica si estas en pausa o perdiste
+    public TextMeshProUGUI idPausa;
 
     private void Start()
     {
+        // Obtenemos la escena actual
+        Scene scene = SceneManager.GetActiveScene();
+        // Ponemos como escena actual 
+        sceneActual= scene.name;
         // Si el juego ya ha sido jugado, entonces tomamos el estado del nivel
         if (PlayerPrefs.HasKey("Estado_N2"))
         {
@@ -72,6 +83,23 @@ public class Control_Botones : MonoBehaviour
         MenuP.SetActive(false);
         // Reactivamos el boton de pausa
         BotonP.SetActive(true);
+    }
+    public void Reiniciar()
+    {
+        // Inicializamos el tiempo de manera normal
+        Time.timeScale = 1;
+        // Volemos a empezar la escena en la que estamos
+        SceneManager.LoadScene(sceneActual);
+    }
+    public void Perdiste()
+    {
+        // Iniciamlizamos el menu de pausa
+        Pausa();
+        //Desactivamos el boton de reanudar
+        BotonR.SetActive(false);
+        // Cambiamos el texto del identificador
+        idPausa.text = "Perdiste";
+
     }
     public void Nivel1()
     {
