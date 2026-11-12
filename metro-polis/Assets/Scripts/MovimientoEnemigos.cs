@@ -76,11 +76,11 @@ public class MovimientoEnemigos : MonoBehaviour
             }
             else//Sino, invertimos la velocidad para que vaya para el otro lado
             {
-                //Primero paramos al enemigo
-                rb.linearVelocityX = 0f;
                 // Si el giro es verdadero, entonces invertimos la velocidad
                 if (giro)
                 {
+                    //Primero paramos al enemigo
+                    rb.linearVelocityX = 0f;
                     //Invertimos la velocidad
                     velo = -1 * velo;
                     // Luego invertimos la velocidad 

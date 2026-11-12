@@ -8,6 +8,7 @@ TagManager:
   - moneda
   - matador
   - enemigo
+  - Plataforma
   layers:
   - Default
   - TransparentFX
