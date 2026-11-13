@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     private bool salto = true;
     //Variable que contiene las propiedades fisicas
     Rigidbody2D rb;
-    //Variable que contiene el collider del protagonista
-    CapsuleCollider capsuleCollider;
+    //Variable que contiene el animador del personaje
+    public Animator animador;
     //Camara 1 que que vizualiza al personaje
     public Camera cam1;
     //Objeto auxiliar que los da una referencia para la ubicacion
@@ -26,8 +26,6 @@ public class Player : MonoBehaviour
     {
         //Primero obtenemos las propiedades fisicas
         rb = GetComponent<Rigidbody2D>();
-        //Luego obtenemos las propiedades del capsule collider
-        capsuleCollider = GetComponent<CapsuleCollider>();
         //Obtenemos el transform del auxiliar
         transAux = cam1.GetComponent<Transform>();
         //Punto donde se empieza a mover la camara
@@ -39,6 +37,10 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Piso") || collision.gameObject.CompareTag("Plataforma"))
         {
             salto = true;
+        }
+        else
+        {
+            salto=false;
         }
     }
 
@@ -62,15 +64,45 @@ public class Player : MonoBehaviour
             //Si el toque esta mas a la derecha que el objeto de referencia, entonces movemos el objeto a la derecha
             if (transAux.position.x < posicionActual.x)
             {
-                //Cambiamos la velocidad
-                rb.linearVelocityX = veloMove;
+                //Si el toque esta en su fase final, entonces la velocidad del personaje es 0
+                if (toque.phase == TouchPhase.Ended)
+                {
+                    //Cambiamos la velocidad a 0
+                    rb.linearVelocityX = 0f;
+                }
+                else
+                {
+                    //Cambiamos la velocidad
+                    rb.linearVelocityX = veloMove;
+                    //Si la el personaje apuntaba para atras, hacemos que vea para adelante
+                    if (transform.localScale.x < 0)
+                    {
+                        // Cambiamos la orientacion del personaje
+                        transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    }
+                }
             }
             //Si el toque esta mas a la izquierda que el objeto de referencia, entonces movemos el objeto a la izquierda
             if (posicionActual.x < transAux.position.x)
             {
-                //Cambiamos la velocidad
-                rb.linearVelocityX = -veloMove;
-                
+                //Si el toque esta en su posicion final, entonces ponemos la velocidad como 0
+                if (toque.phase == TouchPhase.Ended)
+                {
+                    //Cambiamos velocidad a 0
+                    rb.linearVelocityX = 0f;
+                }
+                else // Si no, su condicion es normal
+                {
+                    //Cambiamos la velocidad
+                    rb.linearVelocityX = -veloMove;
+                    //Si el personaje estaba apuntando para adelante, entonces hacemos que vea para atras
+                    if (0 < transform.localScale.x)
+                    {
+                        //Hacemos que vea paea atras
+                        transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    }
+                }
+
             }
         }
         //Definimos que pasara si hay dos toques en la pantalla
@@ -93,6 +125,8 @@ public class Player : MonoBehaviour
                 salto = false;
             }
         }
+        // Cmabiamos la condicion para que se de la animacion de movimeinto en el personaje
+        animador.SetFloat("move",rb.linearVelocityX);
         
     }
 }

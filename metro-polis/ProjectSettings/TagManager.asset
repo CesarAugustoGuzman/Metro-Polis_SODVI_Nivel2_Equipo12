@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Piso
+  - moneda
+  - matador
+  - enemigo
+  - Plataforma
   layers:
   - Default
   - TransparentFX
