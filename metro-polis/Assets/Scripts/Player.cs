@@ -64,24 +64,43 @@ public class Player : MonoBehaviour
             //Si el toque esta mas a la derecha que el objeto de referencia, entonces movemos el objeto a la derecha
             if (transAux.position.x < posicionActual.x)
             {
-                //Cambiamos la velocidad
-                rb.linearVelocityX = veloMove;
-                //Si la el personaje apuntaba para atras, hacemos que vea para adelante
-                if (transform.localScale.x<0){
-                    // Cambiamos la orientacion del personaje
-                    transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                //Si el toque esta en su fase final, entonces la velocidad del personaje es 0
+                if (toque.phase == TouchPhase.Ended)
+                {
+                    //Cambiamos la velocidad a 0
+                    rb.linearVelocityX = 0f;
+                }
+                else
+                {
+                    //Cambiamos la velocidad
+                    rb.linearVelocityX = veloMove;
+                    //Si la el personaje apuntaba para atras, hacemos que vea para adelante
+                    if (transform.localScale.x < 0)
+                    {
+                        // Cambiamos la orientacion del personaje
+                        transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    }
                 }
             }
             //Si el toque esta mas a la izquierda que el objeto de referencia, entonces movemos el objeto a la izquierda
             if (posicionActual.x < transAux.position.x)
             {
-                //Cambiamos la velocidad
-                rb.linearVelocityX = -veloMove;
-                //Si el personaje estaba apuntando para adelante, entonces hacemos que vea para atras
-                if (0<transform.localScale.x)
+                //Si el toque esta en su posicion final, entonces ponemos la velocidad como 0
+                if (toque.phase == TouchPhase.Ended)
                 {
-                    //Hacemos que vea paea atras
-                    transform.localScale = new Vector3(-1*transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    //Cambiamos velocidad a 0
+                    rb.linearVelocityX = 0f;
+                }
+                else // Si no, su condicion es normal
+                {
+                    //Cambiamos la velocidad
+                    rb.linearVelocityX = -veloMove;
+                    //Si el personaje estaba apuntando para adelante, entonces hacemos que vea para atras
+                    if (0 < transform.localScale.x)
+                    {
+                        //Hacemos que vea paea atras
+                        transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    }
                 }
 
             }
