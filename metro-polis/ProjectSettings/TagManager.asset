@@ -9,6 +9,10 @@ TagManager:
   - matador
   - enemigo
   - Plataforma
+  - Rata
+  - Multitud
+  - Cucaracha
+  - Obstaculo
   layers:
   - Default
   - TransparentFX

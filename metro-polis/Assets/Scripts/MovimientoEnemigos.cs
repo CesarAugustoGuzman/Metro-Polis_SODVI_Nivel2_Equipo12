@@ -27,10 +27,35 @@ public class MovimientoEnemigos : MonoBehaviour
         posicionInicial = transform.position;
     }
 
-    // Update is called once per frame
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Si el objeto contra el cual se choca es un obstaculos, entonces se cambia la direccion
+        //Esto solo sucede si es una multitud
+        if (collision.gameObject.CompareTag("Obstaculo") && gameObject.CompareTag("Multitud"))
+        {
+            //Invertimos la velocidad
+            velo = -1 * velo;
+        }
+    }
     void Update()
     {
-        Movimiento();
+        //Separamos las acciones por el tipo de tag que tiene el personaje
+        switch (gameObject.transform.tag) 
+        {
+            //Caso donde estamos controlando una cucaracha
+            case "Cucaracha":
+                //Invocamos el movimiento de la cucaracha
+                MoveCucaracha();
+                break;
+            case "Multitud":
+                //Invocamos el movimiento de la multitud
+                MoveMultitud();
+                break;
+            case "Rata":
+                //Invocamos el movimiento de la rata
+                MoveRat();
+                break;
+        }
     }
     private void DetectorProta()
     {
@@ -50,8 +75,11 @@ public class MovimientoEnemigos : MonoBehaviour
             avanza= false;
         }
     }
-    private void Movimiento()
+    private void MoveCucaracha()
     {
+        //Descripcion de comportamiento: La cucaracha se mueve de un lado a otro alrededro de una vecindad de radio determinado
+        // centrado en el punto inicial donde estaba la cuacaracha
+        //Proceso:
         //Primero llamamos a la funcion que detecta al protagonista
         DetectorProta();
         //Variable auxiliar que contiene el limite izquierdo
@@ -90,8 +118,60 @@ public class MovimientoEnemigos : MonoBehaviour
                 }
             }
         }
-
-
-
+    }
+    public void MoveMultitud()
+    {
+        //Descripcion del movimiento: las multitudes solo caminan en uns direccion cuando detenctan que el prota esta cerca
+        // Este solo cambia su direccion si choca contra algun obstaculo
+        //Primero detectamos si el prota esta cerca
+        DetectorProta();
+        //Si el avance no esta autorizado, entonces la multitud se queda quieta
+        if (!avanza)
+        {
+            //Mantenemos quieto a la multitud
+            rb.linearVelocityX = 0f;
+        }
+        else //En caso contrario comenzamos con el avance
+        {
+            //Cambiamos la velocidad
+            rb.linearVelocityX =velo;
+        }
+    }
+    public void MoveRat()
+    {
+        // Descripcion de movimiento: la rata al percibir que el prota esta cerca lo empieza ha seguir hasta ser eliminado o atraparlo
+        // Aclaracion: la eliminacion del prota esta en otro script
+        //Primero detectamos si el prota esta cerca
+        DetectorProta();
+        //Variable auxiliar que contiene el movimiento del prota
+        Vector2 movimiento= Vector2.zero;
+        // Ahora validamos las acciones dependiendo si wl movimiento esta autorizado o no
+        if (avanza)
+        {
+            //Nota: para encontrar la trayectoria que nos lleve al prota necesitamos determinar la recta que es el desplazamiento
+            // a ella. Como tenemos la posicion del prota y la rata, entonces podemos determinar la recta
+            //Calculamos el vector direccion donde ira la rata
+            Vector2 direccion = (Player.position - transform.position).normalized;
+            //Ahora hacemos el vector que representa el movimiento de la cucaracha
+            movimiento = new Vector2(direccion.x, 0);
+        }
+        else //En caso contrario no hay movimiento
+        {
+            //Vector que tiene el movimiento del prota
+            movimiento = Vector2.zero;
+        }
+        //Ahora movemos al prota
+        rb.MovePosition(rb.position+movimiento*Mathf.Abs(velo)*Time.deltaTime);
+    }
+    private void OnDrawGizmosSelected()
+    {
+        //Color de la circunferencia
+        Gizmos.color = Color.red;
+        //Dibujamos el radio
+        Gizmos.DrawWireSphere(posicionInicial,distancia);
+        // Color de la segunda circunferencia
+        Gizmos.color= Color.green;
+        //Dibujamos el segundo circulo
+        Gizmos.DrawWireSphere(posicionInicial, vecindad);
     }
 }
