@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 7094754974294379710}
   - component: {fileID: 8573438645284291885}
   - component: {fileID: 6083370791283866319}
-  - component: {fileID: 5396962095208568754}
   - component: {fileID: 5778191643631598116}
   m_Layer: 0
   m_Name: Cuerpo
@@ -218,21 +217,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.8957045}
   m_EdgeRadius: 0
---- !u!114 &5396962095208568754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2638314799864077207}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4736c7bf8dd00b4eb4452bd96abd3a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemigo
-  puntuacion: {fileID: 0}
-  control: {fileID: 0}
-  enemigo: {fileID: 174093257857564032}
 --- !u!114 &5778191643631598116
 MonoBehaviour:
   m_ObjectHideFlags: 0
